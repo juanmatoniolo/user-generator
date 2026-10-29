@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import BottomNav from '../components/BottomNav';
 
 // IMPORTANTE: Cambiá esta URL por tu dominio real cuando lo subas a Vercel
-const URL_SITIO = 'https://dashboard-stjer.vercel.app';
+const URL_SITIO = 'https://user-generator-fg1w.vercel.app';
 
 export const metadata = {
   // Configuración base
