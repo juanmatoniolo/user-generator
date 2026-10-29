@@ -2,7 +2,7 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import BottomNav from '@/components/BottomNav';
 
-const URL_SITIO = 'https://gastos-rho-lovat.vercel.app/';
+const URL_SITIO = 'https://user-generator-fg1w.vercel.app/';
 
 export const metadata = {
   metadataBase: new URL(URL_SITIO),
