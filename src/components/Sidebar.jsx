@@ -6,11 +6,12 @@ export default function Sidebar() {
     const pathname = usePathname();
     const router = useRouter();
 
-    if (pathname === '/') return null;
+    // Oculta el menú si está en la raíz o en /login
+    if (pathname === '/' || pathname.startsWith('/login')) return null;
 
     const cerrarSesion = (e) => {
         e.preventDefault();
-        document.cookie = "auth_session=; path=/; max-age=0"; // Borra la cookie
+        document.cookie = "auth_session=; path=/; max-age=0";
         router.push('/');
         router.refresh();
     };
