@@ -2,7 +2,7 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import BottomNav from '@/components/BottomNav';
 
-const URL_SITIO = 'https://user-generator-fg1w.vercel.app';
+const URL_SITIO = 'https://gastos-rho-lovat.vercel.app/';
 
 export const metadata = {
   metadataBase: new URL(URL_SITIO),
@@ -23,8 +23,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
-      <body className="flex flex-col md:flex-row min-h-screen bg-gray-100 pb-16 md:pb-0">
+    // suppressHydrationWarning evita que Next.js marque error por extensiones del navegador
+    <html lang="es" suppressHydrationWarning>
+      <body className="flex flex-col md:flex-row min-h-screen bg-gray-100 pb-16 md:pb-0" suppressHydrationWarning>
         <Sidebar />
         <main className="flex-1 p-4 md:p-8 overflow-y-auto"><div className="max-w-6xl mx-auto">{children}</div></main>
         <BottomNav />

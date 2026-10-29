@@ -1,13 +1,23 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function Sidebar() {
     const pathname = usePathname();
     const router = useRouter();
+    const [isAuth, setIsAuth] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
-    // Oculta el menú si está en la raíz o en /login
-    if (pathname === '/' || pathname.startsWith('/login')) return null;
+    useEffect(() => {
+        setIsClient(true);
+        const hasSession = document.cookie.includes('auth_session=');
+        setIsAuth(hasSession);
+    }, [pathname]);
+
+    if (!isClient) return null;
+
+    if (!isAuth || pathname === '/' || pathname.startsWith('/login')) return null;
 
     const cerrarSesion = (e) => {
         e.preventDefault();
