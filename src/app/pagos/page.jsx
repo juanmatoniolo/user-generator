@@ -25,13 +25,10 @@ export default function Pagos() {
     };
 
     const handleDeletePago = async (id) => {
-        if (confirm('¿Estás seguro de eliminar este registro de pago? Esto no le quitará los días al usuario, solo borra el historial.')) {
+        if (confirm('¿Estás seguro de eliminar este registro de pago?\n\nADVERTENCIA: Esto solo borra el registro del historial. Si querés quitarle los 30 días al usuario, tenés que editarlo manualmente en la pestaña de Clientes.')) {
             const { error } = await supabase.from('pagos_app').delete().eq('id', id);
-            if (error) {
-                alert('Error al eliminar: ' + error.message);
-            } else {
-                fetchPagos();
-            }
+            if (error) alert('Error al eliminar: ' + error.message);
+            else fetchPagos();
         }
     };
 
@@ -65,9 +62,7 @@ export default function Pagos() {
                                         <td className="p-4 text-gray-500 text-sm">{p.notas}</td>
                                         {adminName === 'pome' && (
                                             <td className="p-4 text-center">
-                                                <button onClick={() => handleDeletePago(p.id)} className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition" title="Eliminar Pago">
-                                                    <Trash2 size={18} />
-                                                </button>
+                                                <button onClick={() => handleDeletePago(p.id)} className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition" title="Eliminar Pago"><Trash2 size={18} /></button>
                                             </td>
                                         )}
                                     </tr>
@@ -81,30 +76,21 @@ export default function Pagos() {
                         {pagos.map(p => (
                             <div key={p.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex flex-col gap-2">
                                 <div className="flex justify-between items-center border-b pb-2">
-                                    <div className="flex items-center gap-2 font-bold text-gray-800">
-                                        <User size={16} className="text-gray-400" /> {p.username}
-                                    </div>
+                                    <div className="flex items-center gap-2 font-bold text-gray-800"><User size={16} className="text-gray-400" /> {p.username}</div>
                                     <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded">${p.monto}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-500 text-xs">
                                     <Calendar size={14} /> {new Date(p.fecha_pago).toLocaleDateString('es-AR')} - {new Date(p.fecha_pago).toLocaleTimeString('es-AR')}
                                 </div>
                                 {p.notas && <p className="text-gray-600 text-sm mt-1 bg-gray-50 p-2 rounded">{p.notas}</p>}
-
                                 {adminName === 'pome' && (
-                                    <button onClick={() => handleDeletePago(p.id)} className="mt-2 text-red-500 hover:text-red-700 flex items-center justify-center gap-1 text-sm font-medium border-t pt-2 transition">
-                                        <Trash2 size={16} /> Eliminar Pago
-                                    </button>
+                                    <button onClick={() => handleDeletePago(p.id)} className="mt-2 text-red-500 hover:text-red-700 flex items-center justify-center gap-1 text-sm font-medium border-t pt-2 transition"><Trash2 size={16} /> Eliminar Pago</button>
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    {pagos.length === 0 && (
-                        <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500 border">
-                            No hay pagos registrados todavía.
-                        </div>
-                    )}
+                    {pagos.length === 0 && <div className="bg-white rounded-xl shadow p-8 text-center text-gray-500 border">No hay pagos registrados todavía.</div>}
                 </>
             )}
         </div>
